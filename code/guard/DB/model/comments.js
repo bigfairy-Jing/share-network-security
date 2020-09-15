@@ -1,13 +1,10 @@
+'use strict';
 module.exports = (seq, DataTypes) => {
   return seq.define('user', {
-    name: {
+    comment: {
       type: DataTypes.STRING
     },
-    password: {
-      type: DataType.STRING
-    }
   }, {
     freezeTableName: true
-  }),
-
+  })
 }

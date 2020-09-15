@@ -1,4 +1,4 @@
-module.export = {
+module.exports = {
   key:'koa:sess',
   maxAge: 86400000,
   autoCommit: true,

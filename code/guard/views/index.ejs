@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+
+<body>
+    <h2>用户<%-username%></h2>
+    <h2>来自<%-from%></h2>
+    <ul>
+        <% comments.forEach(function(comment){%>
+        <li><%=comment %></li>
+        <% }) %>
+    </ul>
+
+    <form action="/updateText" method="post" name="form">
+        添加评论: <input type="text" name="text" value="" id='text' />
+        <input type="submit" value="评论" />
+        <input type="button" value="点赞" onclick="send()" />
+    </form>
+    <script>
+        function send() {
+            console.log('send')
+            document.querySelector('#text').value = '赞！赞！赞！';
+            document.querySelector('form').submit();
+        }
+    </script>
+</body>
+
+</html>
