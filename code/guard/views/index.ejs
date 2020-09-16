@@ -2,31 +2,68 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>index</title>
+  <meta charset="UTF-8">
+  <title>index</title>
+  <style>
+    .comment-wrap {
+      height: 200px;
+      overflow-y: auto;
+    }
+
+    .type {
+      display: none;
+    }
+
+    .text {
+      font-size: 1.5em;
+      color: green;
+    }
+
+    .icon {
+      font-size: 1.5em;
+      color: red;
+    }
+  </style>
 </head>
 
 <body>
-    <h2>用户<%-username%></h2>
-    <h2>来自<%-from%></h2>
-    <ul>
-        <% comments.forEach(function(comment){%>
-        <li><%=comment %></li>
-        <% }) %>
-    </ul>
+  <h2>用户: <%-username%></h2>
+  <h2>来自: <%-from%></h2>
+  <h2>评论列表: </h2>
+  <ul class="comment-wrap">
+    <% comments.forEach(function(item){%>
+    <li class="<%=item.type %>"><%=item.comment %></li>
+    <% }) %>
+  </ul>
 
-    <form action="/updateText" method="post" name="form">
-        添加评论: <input type="text" name="text" value="" id='text' />
-        <input type="submit" value="评论" />
-        <input type="button" value="点赞" onclick="send()" />
-    </form>
-    <script>
-        function send() {
-            console.log('send')
-            document.querySelector('#text').value = '赞！赞！赞！';
-            document.querySelector('form').submit();
-        }
-    </script>
+  <form action="/addComments" method="post" name="form">
+    添加评论: <input type="text" name="text" value="" id='text' />
+    <input type="text" name="type" value="" id='type' class="type">
+    <input type="button" value="评论" onclick="common()" />
+    <input type="button" value="点赞" onclick="like()" />
+  </form>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <form action="/clearComments" method="post" name="form">
+    <input type="submit" value="清空" />
+  </form>
+  <script>
+    function like() {
+      document.querySelector('#text').value = '赞';
+      document.querySelector('#type').value = 'icon';
+      document.querySelector('form').submit();
+    }
+
+    function common() {
+      if (!document.querySelector("#text").value.trim()) return
+      document.querySelector('#type').value = 'text';
+      document.querySelector('form').submit();
+    }
+  </script>
 </body>
 
 </html>
