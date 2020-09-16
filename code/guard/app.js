@@ -26,9 +26,9 @@ app.use(views(__dirname + '/views', {
 app.use(async (ctx, next) => {
   await next()
   // 参数出现在HTML内容或属性浏览器会拦截
-  ctx.set('X-XSS-Protection', 0)
+  // ctx.set('X-XSS-Protection', 0)
   // ctx.set('Content-Security-Policy', "default-src 'self'")
-  ctx.set('X-FRAME-OPTIONS', 'DENY')
+  // ctx.set('X-FRAME-OPTIONS', 'DENY')
   // const referer = ctx.request.header.referer
   // console.log('Referer:', referer)
 
