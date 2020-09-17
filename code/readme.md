@@ -54,7 +54,7 @@ $ nodemon index.js
   # 跨站脚本注入 * 评论或者其他方式 注入到页面
   $ 这是一条评论 <script src="http://localhost:4000/hack.js"></script>
   ```
-  
+
 ##### XSS防护
 1. HEAD X-XSS-Protection  (新浏览器已失效,之前常用来禁止和启用XSS过滤,)
 ![avatar](./assets/X-XSS-Protection.png)
@@ -110,15 +110,15 @@ $ nodemon index.js
  # 登录之后访问
  http://localhost:4396/clickjacking.html
 
-```  
+```
 * 防御
   1. X-FRAME-OPTIONS HTTP响应头,设置可以防御用iframe嵌套的点击劫持攻击  
-    DENY，表示⻚⾯不允许通过 iframe 的⽅式展示
-    SAMEORIGIN，表示⻚⾯可以在相同域名下通过 iframe 的⽅式展示
-    ALLOW-FROM，表示⻚⾯可以在指定来源的 iframe 中展示
+      DENY，表示⻚⾯不允许通过 iframe 的⽅式展示
+      SAMEORIGIN，表示⻚⾯可以在相同域名下通过 iframe 的⽅式展示
+      ALLOW-FROM，表示⻚⾯可以在指定来源的 iframe 中展示
   ```javaScript
     ctx.set('X-FRAME-OPTIONS', 'DENY')
-  ```  
+  ```
   2. js 方式
     ```html
       <style id="click-jack">
@@ -130,14 +130,14 @@ $ nodemon index.js
       <body>
         <script>
         if (self == top) {
-        var style = document.getElementById('click-jack')
+        const style = document.getElementById('click-jack')
         document.body.removeChild(style)
         } else {
         top.location = self.location
         }
         </script>
       </body>
-    ``` 
+    ```
     在页面中写入该代码,当通过iframe 加载页面时,攻击者网页直接不显示防御者的网页内容
 
 ### SQL注入
@@ -186,8 +186,10 @@ $ nodemon index.js
 
 ### 请求劫持
 * DNS(Domain Name Syste)劫持 
+  
   > 顾名思义，DNS服务器(DNS解析各个步骤)被篡改，修改了域名解析的结果，使得访问到的不是预期的ip,
 * HTTP劫持 运营商劫持 
+  
   > 运营商劫持 升级HTTPS
 
 ### DDOS 
