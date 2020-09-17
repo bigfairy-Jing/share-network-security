@@ -28,7 +28,7 @@ $ nodemon index.js
 
 
 #### XSS 跨站脚本攻击
-> XSS(Cross-Site Scripting)跨站脚本攻击, 因为缩写和CSS重叠,所以叫XSS.  XSS是指 通过存在的安全漏洞的WEB王章注册用户的浏览器内运行非法的非本站点的HTML标签或JavaScript进行一种攻击. 
+> XSS(Cross-Site Scripting)跨站脚本攻击, 因为缩写和CSS重叠,所以叫XSS.  XSS是指 通过存在的安全漏洞的WEB注册用户的浏览器内运行非法的非本站点的HTML标签或JavaScript进行一种攻击. 
 
 ##### XSS分类
 * 反射弧XSS (非持久型XSS)
