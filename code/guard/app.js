@@ -26,6 +26,8 @@ app.use(views(__dirname + '/views', {
 app.use(async (ctx, next) => {
   await next()
   // ctx.set('X-XSS-Protection', 0)
+
+  
   // ctx.set('Content-Security-Policy', "default-src 'self'")
 
   // 点击劫持演示
