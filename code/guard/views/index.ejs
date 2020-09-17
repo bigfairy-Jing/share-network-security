@@ -4,6 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <title>index</title>
+  <!-- 点击劫持js方式 -->
+  <!-- <style id="click-jack">
+    html {
+    display: none !important;
+    }
+  </style> -->
+
+
   <style>
     .comment-wrap {
       height: 200px;
@@ -33,7 +41,7 @@
   <h2>评论列表: </h2>
   <ul class="comment-wrap">
     <% comments.forEach(function(item){%>
-    <li class="<%=item.type %>"><%=item.comment %></li>
+    <li class="<%=item.type %>"><%-item.comment %></li>
     <% }) %>
   </ul>
 
@@ -60,5 +68,15 @@
     }
   </script>
 </body>
+
+<!-- 点击劫持js方式 -->
+<!-- <script>
+  if (self == top) {
+    const style = document.getElementById('click-jack')
+    document.body.removeChild(style)
+  } else {
+    top.location = self.location
+  }
+</script> -->
 
 </html>

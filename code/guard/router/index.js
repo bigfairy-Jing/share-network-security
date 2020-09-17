@@ -1,8 +1,13 @@
 const router = require('koa-router')();
+const session = require('koa-session');
+const { xssFormat } = require('../../lib/util')
 // 请求sql
 const { sequelize, login, comments } = require('../DB');
 // 首页
 router.get('/', async (ctx) => {
+  if(!ctx.session.username){
+    ctx.redirect("/login")
+  }
   // 请求sql
   const sql = `
     SELECT *
@@ -11,6 +16,7 @@ router.get('/', async (ctx) => {
   const res = await sequelize.query(sql ,  { type: sequelize.QueryTypes.SELECT  }) 
   await ctx.render('index', {
     from: ctx.query.from || 'China',
+    // from: xssFormat(ctx.query.from || 'China'),
     username: ctx.session.username,
     comments: res
   });
@@ -32,6 +38,7 @@ router.get('/login', async (ctx, next) => {
 router.post('/login', async (ctx, next) => {
   
   const { username, password } = ctx.request.body;
+  // 错误sql方式
   const sql = `
   SELECT *
   FROM safety.login
@@ -40,6 +47,7 @@ router.post('/login', async (ctx, next) => {
   `
   const res = await sequelize.query(sql ,  { type: sequelize.QueryTypes.SELECT  })
 
+  // 争取sql方式
   // const sql = `
   //   SELECT *
   //   FROM safety.login
@@ -48,7 +56,6 @@ router.post('/login', async (ctx, next) => {
   // `
   // const res = await sequelize.query(sql , {replacements: [username, password]  , type: sequelize.QueryTypes.SELECT  })
 
-  console.log(res, '----->')
   if(res.length && res.length > 0){
     ctx.session.username = username
     ctx.redirect("/?from=China")

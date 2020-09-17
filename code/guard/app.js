@@ -25,12 +25,19 @@ app.use(views(__dirname + '/views', {
 
 app.use(async (ctx, next) => {
   await next()
-  // 参数出现在HTML内容或属性浏览器会拦截
   // ctx.set('X-XSS-Protection', 0)
   // ctx.set('Content-Security-Policy', "default-src 'self'")
+
+  // 点击劫持演示
   // ctx.set('X-FRAME-OPTIONS', 'DENY')
+
+
+  // csrf origin refer
   // const referer = ctx.request.header.referer
-  // console.log('Referer:', referer)
+  // const origin = ctx.request.header.origin
+  // console.log('Referer:', referer , origin)
+  // if(referer !== '自己的地址')
+
 
   // const referer = ctx.request.header.referer
   // console.log('Referer:', referer)
