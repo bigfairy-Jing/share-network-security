@@ -30,6 +30,7 @@ router.get('/login', async (ctx, next) => {
 
 // 登陆post请求
 router.post('/login', async (ctx, next) => {
+  
   const { username, password } = ctx.request.body;
   const sql = `
   SELECT *
@@ -38,6 +39,16 @@ router.post('/login', async (ctx, next) => {
   AND password = '${password}'
   `
   const res = await sequelize.query(sql ,  { type: sequelize.QueryTypes.SELECT  })
+
+  // const sql = `
+  //   SELECT *
+  //   FROM safety.login
+  //   WHERE name = ?
+  //   AND password = ?
+  // `
+  // const res = await sequelize.query(sql , {replacements: [username, password]  , type: sequelize.QueryTypes.SELECT  })
+
+  console.log(res, '----->')
   if(res.length && res.length > 0){
     ctx.session.username = username
     ctx.redirect("/?from=China")
