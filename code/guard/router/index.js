@@ -17,9 +17,10 @@ router.get('/', async (ctx) => {
   const res = await sequelize.query(sql, {
     type: sequelize.QueryTypes.SELECT
   })
+  console.log()
   await ctx.render('index', {
-    from: ctx.query.from || 'China',
-    // from: xssFormat(ctx.query.from || 'China'),
+    // from: ctx.query.from || 'China',
+    from: xssFormat(ctx.query.from || 'China'),
     username: ctx.session.username,
     comments: res
   });
@@ -44,24 +45,24 @@ router.post('/login', async (ctx) => {
     password
   } = ctx.request.body;
   // 错误sql方式
-  const sql = `
-  SELECT *
-  FROM safety.login
-  WHERE name = '${username}'
-  AND password = '${password}'
-  `
-  const res = await sequelize.query(sql, {
-    type: sequelize.QueryTypes.SELECT
-  })
-
-  // 争取sql方式
   // const sql = `
-  //   SELECT *
-  //   FROM safety.login
-  //   WHERE name = ?
-  //   AND password = ?
+  // SELECT *
+  // FROM safety.login
+  // WHERE name = '${username}'
+  // AND password = '${password}'
   // `
-  // const res = await sequelize.query(sql , {replacements: [username, password]  , type: sequelize.QueryTypes.SELECT  })
+  // const res = await sequelize.query(sql, {
+  //   type: sequelize.QueryTypes.SELECT
+  // })
+
+  // 正确sql方式
+  const sql = `
+    SELECT *
+    FROM safety.login
+    WHERE name = ?
+    AND password = ?
+  `
+  const res = await sequelize.query(sql , {replacements: [username, password]  , type: sequelize.QueryTypes.SELECT  })
 
   if (res.length && res.length > 0) {
     ctx.session.username = username
